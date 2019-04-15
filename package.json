@@ -17,7 +17,9 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
+    "faker": "^4.1.0",
     "jest": "^24.7.1",
+    "knex-cleaner": "^1.1.4",
     "nodemon": "^1.18.11"
   },
   "scripts": {

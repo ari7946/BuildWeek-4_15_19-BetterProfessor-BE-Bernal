@@ -15,8 +15,10 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+const faker = require('faker');
+
 server.get('/', (req, res) => {
-  res.send("It's Alive");
+  res.send(`${faker.hacker.phrase()}`);
 })
 
 // '/api/login'
@@ -37,6 +39,10 @@ server.get('/api/projects', async (req, res) => {
 server.get('/api/students', async (req, res) => {
   const students = await db('students');
   res.status(200).json(students);
+})
+server.get('/api/messages', async (req, res) => {
+  const messages = await db('messages');
+  res.status(200).json(messages);
 })
 server.get('/api/student-projects', async (req, res) => {
   const studentsProjects = await db('student_project');
