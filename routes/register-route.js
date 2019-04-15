@@ -6,13 +6,14 @@ const db = require('../data/dbConfig.js');
 
 router.post('/', async (req, res) => {
   try {
-    let { username, password } = req.body;
-    const user = await db('users').where({ username }).first();
-    if (user && bcrypt.compareSync(password, user.password)) {
-      const token = generateToken(user);
-      res.status(200).json({ token })
+    let user = req.body;
+    if (!user.username || !user.password) {
+      res.status(400).json({ message: "please fill in all fields" });
     } else {
-      res.status(401).json({ message: "invalid credentials" });
+      user.password = bcrypt.hashSync(user.password, 12);
+      const [id] = await db('users').insert(user);
+      const token = await generateToken(user);
+      res.status(201).json({ token });
     }
   } catch (error) {
     res.status(500).json({ message: "internal server error" });

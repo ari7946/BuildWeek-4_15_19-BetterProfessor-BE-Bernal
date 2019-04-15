@@ -7,6 +7,7 @@ const db = require('../data/dbConfig.js');
 
 // Routes
 const loginRouter = require('../routes/login-route.js');
+const registerRouter = require('../routes/register-route.js');
 
 require('dotenv').config();
 
@@ -20,7 +21,7 @@ server.get('/', (req, res) => {
 
 // '/api/login'
 server.use('/api/login', loginRouter)
-// server.use('/api/register', registerRouter)
+server.use('/api/register', registerRouter)
 // server.use('/api/logout', logoutRouter)
 // server.use('/api/students', studentsRouter)
 // server.use('/api/projects', projectsRouter)
