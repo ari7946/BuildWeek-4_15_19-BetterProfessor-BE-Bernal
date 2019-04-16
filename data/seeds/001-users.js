@@ -1,8 +1,11 @@
 const bcrypt = require('bcryptjs');
 const faker = require('faker');
 
-const userList = [];
-for (let i = 0; i < 10; i++) {
+const testPass = bcrypt.hashSync('pass', 12);
+
+const userList = [{ username: "test", password: testPass },];
+
+for (let i = 0; i < 9; i++) {
   const newUser = {}
   newUser.id = i;
   newUser.username = `${faker.name.lastName()}.${faker.name.firstName()}`;
