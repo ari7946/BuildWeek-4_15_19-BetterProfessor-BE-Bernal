@@ -28,10 +28,10 @@ server.use('/api/register', registerRouter)
 // server.use('/api/students', studentsRouter)
 // server.use('/api/projects', projectsRouter)
 
-// server.get('/users', async (req, res) => {
-//   const users = await db('users');
-//   res.status(200).json(users);
-// })
+server.get('/users', async (req, res) => {
+  const users = await db('users');
+  res.status(200).json(users);
+})
 // server.get('/api/projects', async (req, res) => {
 //   const projects = await db('projects');
 //   res.status(200).json(projects);
