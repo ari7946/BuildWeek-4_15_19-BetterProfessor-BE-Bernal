@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
       console.log("else");
       user.password = bcrypt.hashSync(user.password, 12);
       console.log("bcrypt");
-      const [id] = await db('users').insert(user);
+      const id = await db('users').insert(user);
       console.log("id: ", id);
       const token = await generateToken(user);
       console.log("token: ", token);
