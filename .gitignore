@@ -83,3 +83,5 @@ typings/
 .dynamodb/
 
 
+data/better-professor.db3
+data/seeds/

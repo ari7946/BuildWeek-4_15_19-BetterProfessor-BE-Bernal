@@ -11,6 +11,10 @@ exports.up = function (knex) {
       .string('lastname', 128)
       .notNullable();
 
+    students
+      .string('email', 128)
+      .notNullable();
+
   });
 };
 
