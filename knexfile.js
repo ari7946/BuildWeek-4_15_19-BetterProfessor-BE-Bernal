@@ -4,7 +4,7 @@ const localPg = { // for local postgres
   host: 'localhost',
   database: 'better-professor',
   user: 'admin',
-  password: 'Keep-it-secret'
+  password: 'Keep-it-secret-keep-it-safe'
 }
 const productionDbConnection = process.env.DATABASE_URL || localPg;
 

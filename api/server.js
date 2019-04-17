@@ -7,6 +7,10 @@ const db = require('../data/dbConfig.js');
 
 // Routes
 const loginRouter = require('../routes/login-route.js');
+const registerRouter = require('../routes/register-route.js');
+const studentsRouter = require('../routes/students-route.js');
+const projectsRouter = require('../routes/projects-route.js');
+const profStudentInfoRouter = require('../routes/professor-student-route.js');
 
 require('dotenv').config();
 
@@ -14,34 +18,23 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+const faker = require('faker');
+
 server.get('/', (req, res) => {
-  res.send("It's Alive");
+  res.send(`${faker.hacker.phrase()}`);
 })
 
 // '/api/login'
 server.use('/api/login', loginRouter)
-// server.use('/api/register', registerRouter)
+server.use('/api/register', registerRouter)
 // server.use('/api/logout', logoutRouter)
-// server.use('/api/students', studentsRouter)
-// server.use('/api/projects', projectsRouter)
+server.use('/api/students', studentsRouter)
+server.use('/api/projects', projectsRouter)
+server.use('/api/professor-student-info', profStudentInfoRouter)
 
 server.get('/users', async (req, res) => {
   const users = await db('users');
   res.status(200).json(users);
 })
-server.get('/api/projects', async (req, res) => {
-  const projects = await db('projects');
-  res.status(200).json(projects);
-})
-server.get('/api/students', async (req, res) => {
-  const students = await db('students');
-  res.status(200).json(students);
-})
-server.get('/api/student-projects', async (req, res) => {
-  const studentsProjects = await db('student_project');
-  res.status(200).json(studentsProjects);
-})
-
-
 
 module.exports = server;
