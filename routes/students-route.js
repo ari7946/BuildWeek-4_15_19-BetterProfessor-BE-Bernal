@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
       res.status(400).json({ message: "please fill in all fields" });
     } else {
       console.log("if: false(good thing)");
-      const id = await db('students').insert(student);
+      const id = await db('students').insert(student).returning("id");
       console.log("id: ", id);
       res.status(201).json({ message: `${student.firstname} has been registered` })
     }
