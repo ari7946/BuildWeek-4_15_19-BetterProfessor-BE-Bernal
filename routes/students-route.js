@@ -27,12 +27,17 @@ router.get('/:id', async (req, res) => {
 
 // create new student
 router.post('/', async (req, res) => {
+  console.log("post")
   try {
     let student = req.body;
+    console.log("student: ", student);
     if (!student.firstname || !student.lastname || !student.email) {
+      console.log("if: true");
       res.status(400).json({ message: "please fill in all fields" });
     } else {
+      console.log("if: false(good thing)");
       const id = await db('students').insert(student);
+      console.log("id: ", id);
       res.status(201).json({ message: `${student.firstname} has been registered` })
     }
   } catch (error) {
