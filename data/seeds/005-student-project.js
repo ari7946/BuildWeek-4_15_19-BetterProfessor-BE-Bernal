@@ -8,7 +8,7 @@ for (let i = 1; i < 101; i++) {
   let studentProject = {};
   studentProject.student_id = getRandomInt(100);
   studentProject.project_id = getRandomInt(7);
-  studentProject.professor_id = getRandomInt(10);
+  studentProject.professor_id = getRandomInt(9);
   studentProject.student_message = getRandomInt(200);
   studentProject.professor_message = getRandomInt(200);
   studentProjectList.push(studentProject);
