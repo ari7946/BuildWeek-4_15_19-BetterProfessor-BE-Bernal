@@ -13,5 +13,8 @@ for (let i = 1; i < 101; i++) {
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('students').insert(studentList);
+  return knex('students').truncate()
+    .then(function () {
+      return knex('students').insert(studentList);
+    })
 };

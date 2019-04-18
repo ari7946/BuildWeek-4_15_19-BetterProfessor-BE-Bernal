@@ -15,6 +15,8 @@ for (let i = 2; i < 9; i++) {
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('users').insert(userList);
-};
-
+  return knex('users').truncate()
+    .then(function () {
+      knex('users').insert(userList);
+    })
+}

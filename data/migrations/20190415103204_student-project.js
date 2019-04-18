@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('student_project', tbl => {
 
-    tbl.increments();
+    tbl.increments().primary();
 
     tbl.integer('student_id')
       .notNullable()
