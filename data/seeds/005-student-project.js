@@ -9,7 +9,7 @@ for (let i = 1; i < 101; i++) {
   studentProject.id = i;
   studentProject.student_id = getRandomInt(100);
   studentProject.project_id = getRandomInt(7);
-  studentProject.professor_id = getRandomInt(9);
+  studentProject.professor_id = getRandomInt(10);
   studentProject.student_message = getRandomInt(200);
   studentProject.professor_message = getRandomInt(200);
   studentProjectList.push(studentProject);
@@ -17,8 +17,5 @@ for (let i = 1; i < 101; i++) {
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('student_project').truncate()
-    .then(function () {
-      return knex('student_project').insert(studentProjectList);
-    })
+  return knex('student_project').insert(studentProjectList);
 };

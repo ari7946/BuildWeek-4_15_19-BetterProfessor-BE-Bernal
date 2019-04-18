@@ -9,10 +9,8 @@ for (let i = 1; i < 201; i++) {
   messageList.push(message);
 }
 
+
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('messages').truncate()
-    .then(function () {
-      return knex('messages').insert(messageList);
-    })
+  return knex('messages').insert(messageList);
 };
