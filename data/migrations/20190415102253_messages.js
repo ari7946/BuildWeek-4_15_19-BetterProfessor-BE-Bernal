@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('messages', messages => {
 
-    messages.increments().primary();
+    messages.increments();
 
     messages
       .text('message')
