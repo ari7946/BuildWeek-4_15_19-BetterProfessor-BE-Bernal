@@ -4,45 +4,41 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../api/secrets.js');
 const db = require('../data/dbConfig.js');
 
-// get all projects
+// get all students
 router.get('/', async (req, res) => {
   try {
-    const projects = await db('projects');
-    res.status(200).json(projects);
+    const students = await db('student-project');
+    res.status(200).json(students);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-// Get a project
+// Get a student
 router.get('/:id', async (req, res) => {
   try {
-    console.log("GET project")
     const id = req.params.id
-    console.log("id: ", id)
-    const project = await db('projects').where({ id }).first()
-    console.log("project: ", project)
-    res.status(200).json(project)
+    const student = await db('students').where({ id }).first()
+    res.status(200).json(student)
   } catch (err) {
-    res.status(500).json({ message: "Error trying to GET project!" })
+    res.status(500).json({ message: "Error trying to GET student!" })
   }
 })
 
-// create new project
+// create new student
 router.post('/', async (req, res) => {
-  const {
-    projectName: project_name,
-    projectDeadline: project_deadline,
-    feedbackDeadline: feedback_deadline,
-    recommendationDeadline: recommendation_deadline
-  } = req.body;
+  console.log("post")
   try {
-    let project = req.body;
-    if (!project_name || !project_deadline || !feedback_deadline || !recommendation_deadline) {
+    let student = req.body;
+    console.log("student: ", student);
+    if (!student.firstname || !student.lastname || !student.email) {
+      console.log("if: true");
       res.status(400).json({ message: "please fill in all fields" });
     } else {
-      const id = await db('projects').insert({ project_name, project_deadline, feedback_deadline, recommendation_deadline }).returning("id");
-      res.status(201).json({ message: `${project_name} has been created` })
+      console.log("if: false(good thing)");
+      const id = await db('students').insert(student).returning("id");
+      console.log("id: ", id);
+      res.status(201).json({ message: `${student.firstname} has been registered` })
     }
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" })
@@ -50,17 +46,17 @@ router.post('/', async (req, res) => {
 })
 
 
-// destroy projects
+// destroy student
 router.delete('/:id', async (req, res) => {
   try {
     console.log("delete Route")
     const id = req.params.id;
     console.log("id: ", id)
-    const numDeleted = await db('projects').where({ id }).del();
+    const numDeleted = await db('students').where({ id }).del();
     console.log("numDeleted: ", numDeleted)
     if (numDeleted != 0) {
       console.log("if: true")
-      res.status(201).json({ message: "Project Deleted" });
+      res.status(201).json({ message: "User Deleted" });
     } else {
       console.log("if: false")
       res.status(404).json({ message: "No record found!" });
@@ -70,30 +66,23 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// update project
+// update student
 router.put('/:id', async (req, res) => {
-  const {
-    projectName: project_name,
-    projectDeadline: project_deadline,
-    feedbackDeadline: feedback_deadline,
-    recommendationDeadline: recommendation_deadline
-  } = req.body;
   try {
     console.log('put');
     const id = req.params.id;
     console.log('id: ', id);
-    const numUpdated = await db('projects')
+    const numUpdated = await db('students')
       .where({ id })
       .update({
-        project_name,
-        project_deadline,
-        feedback_deadline,
-        recommendation_deadline
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email
       })
     console.log('numUpdated: ', numUpdated);
     if (numUpdated != 0) {
       console.log('status 201');
-      res.status(201).json({ message: `You changed the project's info` })
+      res.status(201).json({ message: `You changed the student's info` })
     } else {
       res.status(404).json({ message: 'No record found' });
     }

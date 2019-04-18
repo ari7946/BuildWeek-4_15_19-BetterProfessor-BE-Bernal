@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
       res.status(400).json({ message: "please fill in all fields" });
     } else {
       user.password = bcrypt.hashSync(user.password, 12);
-      const id = await db('users').insert(user);
+      const id = await db('users').insert(user).returning("id");
       res.status(201).json({ message: "Registration Complete", registered: true });
     }
   } catch (error) {
