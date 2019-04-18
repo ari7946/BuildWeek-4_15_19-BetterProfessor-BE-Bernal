@@ -6,12 +6,17 @@ const db = require('../data/dbConfig.js');
 
 router.post('/', async (req, res) => {
   try {
+    console.log("try")
     let user = req.body;
+    console.log("user", user)
     if (!user.username || !user.password) {
       res.status(400).json({ message: "please fill in all fields" });
     } else {
+      console.log("else")
       user.password = bcrypt.hashSync(user.password, 12);
+      console.log("user: ", user)
       const id = await db('users').insert(user).returning("id");
+      console.log("id: ", id)
       res.status(201).json({ message: "Registration Complete", registered: true });
     }
   } catch (error) {

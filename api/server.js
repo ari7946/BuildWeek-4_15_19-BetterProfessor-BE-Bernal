@@ -23,7 +23,7 @@ server.use(cors());
 
 // Testing Route / easteregg :)
 server.get('/', (req, res) => {
-  res.send(`${faker.hacker.phrase()}`);
+  res.status(200).json({ message: `${faker.hacker.phrase()}` });
 })
 
 // Routing
@@ -35,11 +35,6 @@ server.use('/api/students', restricted, studentsRouter)
 server.use('/api/projects', restricted, projectsRouter)
 server.use('/api/students-projects', restricted, studentsProjectsRouter)
 server.use('/api/professor-student-info', restricted, profStudentInfoRouter)
-
-// server.use('/api/students', studentsRouter)
-// server.use('/api/projects', projectsRouter)
-// server.use('/api/students-projects', studentsProjectsRouter)
-// server.use('/api/professor-student-info', profStudentInfoRouter)
 
 server.get('/users', async (req, res) => {
   const users = await db('users');
