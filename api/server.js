@@ -2,8 +2,10 @@ const express = require('express');
 const server = express();
 const helmet = require('helmet');
 const cors = require('cors');
+const faker = require('faker');
 
 const db = require('../data/dbConfig.js');
+const restricted = require('./restricted-middleware.js');
 
 // Routes
 const loginRouter = require('../routes/login-route.js');
@@ -13,26 +15,31 @@ const projectsRouter = require('../routes/projects-route.js');
 const studentsProjectsRouter = require('../routes/students-projects-route.js');
 const profStudentInfoRouter = require('../routes/professor-student-route.js');
 
+// Middleware
 require('dotenv').config();
-
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-const faker = require('faker');
-
+// Testing Route / easteregg :)
 server.get('/', (req, res) => {
   res.send(`${faker.hacker.phrase()}`);
 })
 
-// '/api/login'
+// Routing
 server.use('/api/login', loginRouter)
 server.use('/api/register', registerRouter)
 // server.use('/api/logout', logoutRouter)
-server.use('/api/students', studentsRouter)
-server.use('/api/projects', projectsRouter)
-server.use('/api/students-projects', studentsProjectsRouter)
-server.use('/api/professor-student-info', profStudentInfoRouter)
+
+server.use('/api/students', restricted, studentsRouter)
+server.use('/api/projects', restricted, projectsRouter)
+server.use('/api/students-projects', restricted, studentsProjectsRouter)
+server.use('/api/professor-student-info', restricted, profStudentInfoRouter)
+
+// server.use('/api/students', studentsRouter)
+// server.use('/api/projects', projectsRouter)
+// server.use('/api/students-projects', studentsProjectsRouter)
+// server.use('/api/professor-student-info', profStudentInfoRouter)
 
 server.get('/users', async (req, res) => {
   const users = await db('users');
