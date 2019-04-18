@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     console.log('user: ', user);
     if (user && bcrypt.compareSync(password, user.password)) {
       console.log('true');
-      const token = generateToken(user);
+      const token = await generateToken(user);
       console.log('token: ', token);
       res.status(200).json({ token })
     } else {
