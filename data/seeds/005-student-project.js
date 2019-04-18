@@ -4,9 +4,9 @@ function getRandomInt(max) {
   return 1 + Math.floor(Math.random() * Math.floor(max - 1));
 }
 
-for (let i = 1; i < 101; i++) {
+for (let i = 1; i < 100; i++) {
   let studentProject = {};
-  studentProject.student_id = getRandomInt(100);
+  studentProject.student_id = getRandomInt(99);
   studentProject.project_id = getRandomInt(7);
   studentProject.professor_id = getRandomInt(9);
   studentProject.student_message = getRandomInt(200);

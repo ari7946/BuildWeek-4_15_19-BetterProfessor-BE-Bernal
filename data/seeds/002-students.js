@@ -1,7 +1,7 @@
 const faker = require('faker');
 
 const studentList = [];
-for (let i = 1; i < 101; i++) {
+for (let i = 0; i < 100; i++) {
   const newStudent = {}
   newStudent.firstname = faker.name.firstName();
   newStudent.lastname = faker.name.lastName();
