@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../api/secrets.js');
 const db = require('../data/dbConfig.js');
 
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
 
-  const id = req.params.id;
+  const id = req.decodedJwt.subject;
 
   const info = await db('student_project')
     .innerJoin('users', 'users.id', '=', 'student_project.professor_id')
@@ -44,14 +44,12 @@ router.get('/:id', async (req, res) => {
           .where({ 'student_project.student_id': `${info[i].student_id}` })
           .select('message').first();
 
-        console.log(profmessage);
         if (profmessage.message) {
           info[i].project[j].professorMessage = profmessage.message;
         } else {
         }
       } catch (error) {
         info[i].project[j].professorMessage = '';
-        // console.error(error)
       }
     }
 

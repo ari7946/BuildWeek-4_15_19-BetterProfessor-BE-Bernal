@@ -27,12 +27,16 @@ router.get('/:id', async (req, res) => {
 
 // create new student
 router.post('/', async (req, res) => {
+  console.log("post")
   try {
     let student = req.body;
+    console.log("student: ", student);
     if (!student.firstname || !student.lastname || !student.email) {
+      console.log("if: true");
       res.status(400).json({ message: "please fill in all fields" });
     } else {
-      const id = await db('students').insert(student);
+      console.log("if: false(good thing)");
+      const id = await db('students').insert(student).returning("id");
       res.status(201).json({ message: `${student.firstname} has been registered` })
     }
   } catch (error) {
@@ -87,43 +91,3 @@ router.put('/:id', async (req, res) => {
 })
 
 module.exports = router;
-
-
-// endpoints:
-// /api/login -> sends token back
-// /api/register -> sends back welcome message
-
-// GET & POST & PUT & DEL /api/students -> CRUD functionality (/api/students/:id as well)
-// GET & POST & PUT & DEL /api/users -> CRUD functionality (/api/users/:id as well)
-// GET & POST & PUT & DEL /api/projects -> CRUD functionality (/api/projects/:id as well)
-
-// GET /api/professor-students-info -> sends back object. 
-//   example:
-//     [
-//       studentid: {
-//         firstname: "john",
-//         lastname: 'smith',
-//         email: 'email',
-//         projects: [
-//           {
-//             "id": 1,
-//             "project_name": "Static Code Checker",
-//             "project_deadline": "2019-05-08 12:00:00",
-//             "feedback_deadline": "2019-05-10 12:00:00",
-//             "recommendation_deadline": "2019-06-01 12:00:00",
-//             "student_message": "Try reseting the monitor!",
-//             "professor_message": "Project is not up to snuff, crack the whip"
-//           },
-//           {
-//             "id": 2,
-//             "project_name": "dynamic Hand Gesture Recognition using neural network",
-//             "project_deadline": "2019-04-18 12:00:00",
-//             "feedback_deadline": "2019-04-20 12:00:00",
-//             "recommendation_deadline": "2019-05-01 12:00:00", 
-//             "student_message": "Try reseting the monitor!",
-//             "professor_message": "Project is great, still crack the whip"
-//           }
-//         ]  
-//       }
-
-//     ]

@@ -15,8 +15,10 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.16.5",
     "knex-cleaner": "^1.1.4",
+    "nodemailer": "^6.1.0",
     "pg": "^7.9.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
@@ -26,7 +28,7 @@
   "scripts": {
     "server": "nodemon",
     "start": "node index.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --runInBand",
     "testing": "cross-env DB_ENV=testing jest --watch"
   },
   "jest": {

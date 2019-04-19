@@ -17,11 +17,11 @@ router.get('/', async (req, res) => {
 // Get a project
 router.get('/:id', async (req, res) => {
   try {
-    console.log("GET project")
+    // console.log("GET project")
     const id = req.params.id
-    console.log("id: ", id)
+    // console.log("id: ", id)
     const project = await db('projects').where({ id }).first()
-    console.log("project: ", project)
+    // console.log("project: ", project)
     res.status(200).json(project)
   } catch (err) {
     res.status(500).json({ message: "Error trying to GET project!" })
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
     if (!project_name || !project_deadline || !feedback_deadline || !recommendation_deadline) {
       res.status(400).json({ message: "please fill in all fields" });
     } else {
-      const id = await db('projects').insert({ project_name, project_deadline, feedback_deadline, recommendation_deadline });
+      const id = await db('projects').insert({ project_name, project_deadline, feedback_deadline, recommendation_deadline }).returning("id");
       res.status(201).json({ message: `${project_name} has been created` })
     }
   } catch (error) {

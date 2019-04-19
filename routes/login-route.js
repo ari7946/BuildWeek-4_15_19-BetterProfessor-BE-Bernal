@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
       res.status(401).json({ message: "invalid credentials" });
     }
   } catch (error) {
+    // console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 });
@@ -22,8 +23,8 @@ router.post('/', async (req, res) => {
 function generateToken(user) {
   const payload = {
     subject: user.id
-  },
-    secret = secrets.jwtSecret;
+  }
+  secret = secrets.jwtSecret;
   const options = {
     expiresIn: '1d',
   }
