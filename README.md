@@ -180,5 +180,3 @@ example info that comes back:
 {
     "message": "Project Deleted"
 }
-
-
