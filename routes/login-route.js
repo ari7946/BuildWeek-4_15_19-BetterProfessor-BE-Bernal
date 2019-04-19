@@ -12,11 +12,10 @@ router.post('/', async (req, res) => {
       const token = generateToken(user);
       res.status(200).json({ token })
     } else {
-      // console.log('error 401');
       res.status(401).json({ message: "invalid credentials" });
     }
   } catch (error) {
-    // console.log('error 500');
+    // console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 });

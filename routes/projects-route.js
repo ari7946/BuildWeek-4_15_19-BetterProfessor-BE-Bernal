@@ -17,11 +17,11 @@ router.get('/', async (req, res) => {
 // Get a project
 router.get('/:id', async (req, res) => {
   try {
-    console.log("GET project")
+    // console.log("GET project")
     const id = req.params.id
-    console.log("id: ", id)
+    // console.log("id: ", id)
     const project = await db('projects').where({ id }).first()
-    console.log("project: ", project)
+    // console.log("project: ", project)
     res.status(200).json(project)
   } catch (err) {
     res.status(500).json({ message: "Error trying to GET project!" })
