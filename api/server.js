@@ -36,9 +36,9 @@ server.use('/api/projects', restricted, projectsRouter)
 server.use('/api/students-projects', restricted, studentsProjectsRouter)
 server.use('/api/professor-student-info', restricted, profStudentInfoRouter)
 
-server.get('/users', async (req, res) => {
-  const users = await db('users');
-  res.status(200).json(users);
-})
+// server.get('/users', async (req, res) => {
+//   const users = await db('users');
+//   res.status(200).json(users);
+// })
 
 module.exports = server;
