@@ -13,7 +13,8 @@ router.post('/', async (req, res) => {
     } else {
       user.password = bcrypt.hashSync(user.password, 12);
       const id = await db('users').insert(user).returning("id");
-      res.status(201).json({ message: "Registration Complete", registered: true });
+      const token = generateToken(user);
+      res.status(201).json({ message: "Registration Complete", registered: true, token });
     }
   } catch (error) {
     res.status(500).json({ message: "internal server error" });
